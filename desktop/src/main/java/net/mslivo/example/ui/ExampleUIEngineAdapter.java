@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import net.mslivo.core.engine.media_manager.MediaManager;
 import net.mslivo.core.engine.ui_engine.*;
 import net.mslivo.core.engine.ui_engine.constants.KeyCode;
@@ -26,6 +27,7 @@ public class ExampleUIEngineAdapter implements UIEngineAdapter {
     private boolean resetPressed;
     private SpriteRenderer batch;
     private PrimitiveRenderer primitiveRenderer;
+    private SpriteBatch spriteBatch = new SpriteBatch();
 
     public ExampleUIEngineAdapter() {
     }
@@ -208,6 +210,16 @@ public class ExampleUIEngineAdapter implements UIEngineAdapter {
         primitiveRenderer.vertex(5,62);
         primitiveRenderer.vertex(11,52);
         primitiveRenderer.end();
+
+
+        spriteBatch.setProjectionMatrix(camera.combined);
+        spriteBatch.begin();
+        spriteBatch.draw(mediaManager.getCMediaAnimation(ExampleBaseMedia.EXAMPLE_ANIMATION_2).getKeyFrame(api.animationTimer()),100,100);
+        spriteBatch.end();
+
+        batch.begin();
+        batch.draw(mediaManager.getCMediaAnimation(ExampleBaseMedia.EXAMPLE_ANIMATION_2).getKeyFrame(api.animationTimer()),100,200);
+        batch.end();
     }
 
     @Override
