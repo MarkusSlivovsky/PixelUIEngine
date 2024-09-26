@@ -3,16 +3,14 @@ package net.mslivo.core.engine.tools;
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.PixmapIO;
 import com.badlogic.gdx.math.MathUtils;
-import com.badlogic.gdx.scenes.scene2d.utils.UIUtils;
 import com.badlogic.gdx.utils.IntMap;
 import com.badlogic.gdx.utils.LongArray;
-import com.badlogic.gdx.utils.SharedLibraryLoader;
+import com.github.dgzt.gdx.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.github.dgzt.gdx.lwjgl3.Lwjgl3VulkanApplication;
 import net.mslivo.core.engine.media_manager.CMedia;
 
 import java.io.*;
@@ -154,9 +152,8 @@ public class Tools {
         public static void launch(ApplicationAdapter applicationAdapter, String appTile, int resolutionWidth, int resolutionHeight, String iconPath, int fps, boolean vSync) {
             Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
             config.setResizable(true);
-            boolean linux32Bit = UIUtils.isLinux && !SharedLibraryLoader.is64Bit;
 
-            config.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.ANGLE_GLES20, 2, 0);
+            config.setOpenGLEmulation(Lwjgl3ApplicationConfiguration.GLEmulation.ANGLE_GLES32, 0, 0);
 
             config.setWindowedMode(resolutionWidth, resolutionHeight);
             config.setWindowSizeLimits(resolutionWidth, resolutionHeight, -1, -1);
@@ -167,10 +164,10 @@ public class Tools {
             config.setIdleFPS(fps);
             config.useVsync(vSync);
             config.setWindowPosition(-1, -1);
-            config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 0);
+            config.setBackBufferConfig(8, 8, 8, 8, 16, 0, 4);
             if (iconPath != null) config.setWindowIcon(iconPath);
             try {
-                new Lwjgl3Application(applicationAdapter, config);
+                new Lwjgl3VulkanApplication(applicationAdapter, config);
             } catch (Exception e) {
                 log(e);
                 logToFile(e, ERROR_LOG_FILE);

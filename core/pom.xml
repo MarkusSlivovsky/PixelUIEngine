@@ -33,11 +33,18 @@
 			<artifactId>gdx-platform</artifactId>
 			<classifier>natives-desktop</classifier>
 		</dependency>
-		<dependency>
+		<!--<dependency>
 			<groupId>com.badlogicgames.gdx</groupId>
 			<artifactId>gdx-lwjgl3-angle</artifactId>
+		</dependency>-->
+		<dependency>
+			<groupId>com.github.Dgzt</groupId>
+			<artifactId>gdx-lwjgl3-angle-vulkan</artifactId>
 		</dependency>
+
 	</dependencies>
+
+
 
 	<build>
 		<resources>
